@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Medchat Widget Tester</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Medchat Widget Tester</h1>
+    </header>
+    <main>
+      <form id="widget-form">
+        <label for="api-key">Widget API Key:</label>
+        <input type="text" id="api-key" name="api-key" required />
+
+        <label for="environment">Environment:</label>
+        <select id="environment" name="environment" required>
+          <option value="blue-dev">blue-dev</option>
+          <option value="dev">dev</option>
+          <option value="blue-prod">blue-prod</option>
+          <option value="prod">prod</option>
+        </select>
+
+        <label for="query-string">Query String:</label>
+        <input type="text" id="query-string" name="query-string" />
+
+        <button type="submit">Submit</button>
+      </form>
+      <hr />
+      <div id="entry-list"></div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
