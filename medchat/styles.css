@@ -39,7 +39,7 @@ button {
   font-size: 16px;
 }
 button {
-  background-color: #007aff;
+  background-color: #0047a3;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -58,7 +58,7 @@ hr {
   position: absolute;
   right: 0px;
   top: 4px;
-  background: #ff3b30;
+  background: #b22222;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -85,7 +85,7 @@ hr {
   background: #fff;
   border-radius: 5px;
   text-decoration: none;
-  color: #007aff;
+  color: #0047a3;
   transition: background-color 0.3s;
   font-size: 14px;
   flex-grow: 1;
