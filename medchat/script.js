@@ -69,6 +69,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function triggerScript(apiKey, environment, queryString) {
+    if (document.getElementById("medchat-widget-script")) {
+      const thisUrl = new URL(window.location.href.split("?")[0]);
+      window.location.href = `${thisUrl}?api-key=${apiKey}&environment=${environment}&query-string=${queryString}`;
+      return;
+    }
     let src = "https://";
 
     switch (environment) {
@@ -96,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
     script.type = "text/javascript";
     script.async = true;
     script.src = src;
+    script.id = "medchat-widget-script";
 
     document.body.appendChild(script);
   }
