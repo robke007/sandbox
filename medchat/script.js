@@ -89,6 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
       case "prod":
         src += "medchatapp.com";
         break;
+      case "local":
+        src = "http://localhost:9005/apps";
+        break;
     }
 
     src += `/chat-ai/${apiKey}/widget.js`;
