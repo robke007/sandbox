@@ -53,32 +53,45 @@ hr {
   border: 0;
   border-top: 1px solid #d1d1d6;
 }
-#entry-list a {
-  display: block;
-  padding: 10px;
-  background: #fff;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  text-decoration: none;
-  color: #007aff;
-  transition: background-color 0.3s;
-  position: relative;
-  font-size: 14px;
-}
-#entry-list a:hover {
-  background-color: #f0f0f5;
-}
+
 .delete-button {
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 0px;
+  top: 4px;
   background: #ff3b30;
   color: #fff;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
+  z-index: 99;
 }
 .delete-button:hover {
   background: #ff1c0f;
+  flex-shrink: 0;
+}
+
+.entry-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+.entry-container a {
+  display: block;
+  padding: 10px;
+  background: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #007aff;
+  transition: background-color 0.3s;
+  font-size: 14px;
+  flex-grow: 1;
+  margin-right: 76px;
+}
+
+.entry-container a:hover {
+  background-color: #f0f0f5;
 }

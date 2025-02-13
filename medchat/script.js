@@ -26,78 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
     queryStringInput.value = firstEntry.queryString;
   }
 
-  entries.forEach((entry, index) => {
-    const entryLink = document.createElement("a");
-    entryLink.href = "#";
-    let entryText = `API Key: ${entry.apiKey}, Environment: ${entry.environment}`;
-    if (entry.queryString) {
-      entryText += `, Query String: ${entry.queryString}`;
-    }
-    entryLink.textContent = entryText;
-    entryLink.addEventListener("click", function (event) {
-      event.preventDefault();
-      triggerScript(entry.apiKey, entry.environment, entry.queryString);
-
-      // Move the clicked entry to the top of the list
-      entries.splice(index, 1);
-      entries.unshift(entry);
-      localStorage.setItem("entries", JSON.stringify(entries));
-
-      // Re-render the entry list
-      renderEntryList();
-    });
-
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
-    deleteButton.className = "delete-button";
-    deleteButton.addEventListener("click", function (event) {
-      event.preventDefault();
-      entries.splice(index, 1);
-      localStorage.setItem("entries", JSON.stringify(entries));
-      entryList.removeChild(entryLink);
-    });
-
-    entryLink.appendChild(deleteButton);
-    entryList.appendChild(entryLink);
-  });
-
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    const apiKey = apiKeyInput.value;
-    const environment = environmentSelect.value;
-    const queryString = queryStringInput.value;
-
-    // Save entry to local storage
-    const entry = { apiKey, environment, queryString };
-
-    // Check for duplicate entries
-    const isDuplicate = entries.some(
-      (e) =>
-        e.apiKey === entry.apiKey &&
-        e.environment === entry.environment &&
-        e.queryString === entry.queryString
-    );
-
-    if (!isDuplicate) {
-      // Update entries list
-      entries.unshift(entry);
-      if (entries.length > 20) {
-        entries.pop();
-      }
-      localStorage.setItem("entries", JSON.stringify(entries));
-
-      // Re-render the entry list
-      renderEntryList();
-    }
-
-    // Trigger script generation
-    triggerScript(apiKey, environment, queryString);
-  });
-
   function renderEntryList() {
     entryList.innerHTML = "";
     entries.forEach((entry, index) => {
+      const entryContainer = document.createElement("div");
+      entryContainer.className = "entry-container";
+
       const entryLink = document.createElement("a");
       entryLink.href = "#";
       let entryText = `API Key: ${entry.apiKey}, Environment: ${entry.environment}`;
@@ -125,11 +59,12 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         entries.splice(index, 1);
         localStorage.setItem("entries", JSON.stringify(entries));
-        entryList.removeChild(entryLink);
+        entryList.removeChild(entryContainer);
       });
 
-      entryLink.appendChild(deleteButton);
-      entryList.appendChild(entryLink);
+      entryContainer.appendChild(entryLink);
+      entryContainer.appendChild(deleteButton);
+      entryList.appendChild(entryContainer);
     });
   }
 
@@ -165,6 +100,40 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(script);
   }
 
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const apiKey = apiKeyInput.value;
+    const environment = environmentSelect.value;
+    const queryString = queryStringInput.value;
+
+    // Save entry to local storage
+    const entry = { apiKey, environment, queryString };
+
+    // Check for duplicate entries
+    const isDuplicate = entries.some(
+      (e) =>
+        e.apiKey === entry.apiKey &&
+        e.environment === entry.environment &&
+        e.queryString === entry.queryString
+    );
+
+    if (!isDuplicate) {
+      // Update entries list
+      entries.unshift(entry);
+      if (entries.length > 20) {
+        entries.pop();
+      }
+      localStorage.setItem("entries", JSON.stringify(entries));
+
+      // Re-render the entry list
+      renderEntryList();
+    }
+
+    // Trigger script generation
+    triggerScript(apiKey, environment, queryString);
+  });
+
   // Check for query parameters and trigger form submission
   const queryParams = getQueryParams();
   if (queryParams["api-key"] && queryParams["environment"]) {
@@ -173,4 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
     queryStringInput.value = queryParams["query-string"] || "";
     form.dispatchEvent(new Event("submit"));
   }
+
+  // Initial render of the entry list
+  renderEntryList();
 });
