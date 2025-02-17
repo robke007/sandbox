@@ -13,18 +13,21 @@
       <h1>Medchat Widget Tester</h1>
     </header>
     <main aria-label="Medchat Widget Tester">
-      <form id="widget-form">
+      <form id="widget-form" novalidate>
         <label for="api-key">Widget API Key:</label>
         <input type="text" id="api-key" name="api-key" required />
 
         <label for="environment">Environment:</label>
         <select id="environment" name="environment" required>
-          <option value="blue-dev">blue-dev</option>
+          <option value="blue.dev">blue.dev</option>
           <option value="dev">dev</option>
-          <option value="blue-prod">blue-prod</option>
+          <option value="blue.prod">blue.prod</option>
           <option value="prod">prod</option>
-          <option value="local">local</option>
+          <option value="localhost">localhost</option>
         </select>
+
+        <label for="pr">PR Number</label>
+        <input type="text" id="pr" name="pr" />
 
         <label for="query-string">Query String:</label>
         <input type="text" id="query-string" name="query-string" />
