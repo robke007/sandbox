@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Load last 20 entries
   const entries =
-    JSON.parse(localStorage.getItem("entries")).map((entry) => {
+    JSON.parse(localStorage.getItem("entries"))?.map((entry) => {
       const env = entry.environment.replace("-", ".");
       return { ...entry, environment: env === "local" ? "localhost" : env };
     }) || [];
